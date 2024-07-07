@@ -25,7 +25,7 @@ public class ReviewController {
     @GetMapping("/noOfReview")
     public ResponseEntity<String> noOfReview() {
        int count=reviewService.noOfReview();
-        return ResponseEntity.status(HttpStatus.OK).body("No Of Rating="+count);
+        return ResponseEntity.status(HttpStatus.OK).body("No Of Review="+count);
     }
 
     @PostMapping("/deleteReview")

@@ -4,6 +4,7 @@ import com.rashmita.movieReview.authentication.config.JwtService;
 import com.rashmita.movieReview.user.entity.Role;
 import com.rashmita.movieReview.user.entity.User;
 import com.rashmita.movieReview.user.repo.UserRepository;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
