@@ -1,5 +1,6 @@
 package com.rashmita.movieReview.user.entity;
 
-public enum Role {
+public enum RoleEnum {
     USER, ADMIN;
+
 }

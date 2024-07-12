@@ -1,30 +1,38 @@
-package com.rashmita.movieReview.user.controller;
+package com.rashmita.movieReview.authentication.ImplementSecurity.controllers;
 
-import com.rashmita.movieReview.user.model.UserDto;
-import com.rashmita.movieReview.user.model.UserLoginDto;
+import com.rashmita.movieReview.user.entity.User;
 import com.rashmita.movieReview.user.service.impl.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@RequestMapping("/api/movie")
+import java.util.List;
+
+@RequestMapping("/users")
 @RestController
 public class UserController {
-//    @Autowired
-//    private  final UserService userService;
-//@PostMapping("/registration")
-//    public ResponseEntity<String> registration(@RequestBody UserDto userDto) {
-//        userService.registration(userDto);
-//        return ResponseEntity.status(HttpStatus.OK).body("User created successfully.");
-//
-//
-//    }
-//    @GetMapping("/login")
-//    public ResponseEntity<String> login(@RequestBody UserLoginDto userLoginDto) {
-//           String message=userService.login(userLoginDto);
-//        return ResponseEntity.status(HttpStatus.OK).body(message);
-//
-//
-//    }
+    private final UserService userService;
+
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
+
+    @GetMapping("/me")
+    public ResponseEntity<User> authenticatedUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        User currentUser = (User) authentication.getPrincipal();
+
+        return ResponseEntity.ok(currentUser);
+    }
+
+    @GetMapping("/")
+    public ResponseEntity<List<User>> allUsers() {
+        List<User> user = userService.allUsers();
+
+        return ResponseEntity.ok(user);
+    }
+}
