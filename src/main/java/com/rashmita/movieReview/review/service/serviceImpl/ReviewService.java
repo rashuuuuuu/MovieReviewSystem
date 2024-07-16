@@ -1,34 +1,48 @@
 package com.rashmita.movieReview.review.service.serviceImpl;
 
 import com.rashmita.movieReview.movie.entity.Status;
-import com.rashmita.movieReview.rating.model.RatingDto;
 import com.rashmita.movieReview.review.entity.Review;
 import com.rashmita.movieReview.review.model.ReviewContent;
 import com.rashmita.movieReview.review.model.ReviewDto;
 
-import com.rashmita.movieReview.rating.repo.RatingRepository;
 import com.rashmita.movieReview.review.repo.ReviewRepository;
+import com.rashmita.movieReview.user.entity.User;
+import com.rashmita.movieReview.user.repo.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.awt.*;
+import java.security.Principal;
 import java.sql.Date;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
 public class ReviewService {
 @Autowired
     private ReviewRepository reviewRepository;
+    private final UserRepository userRepository;
     Review review=new Review();
-    public Review createReview(ReviewDto reviewDto) {
-    review.setUserId(reviewDto.getUserId());
-    review.setRating(reviewDto.getRating());
-    review.setMovieId(reviewDto.getMovieId());
-    review.setTimestamp(new Date(System.currentTimeMillis()));
-    review.setContent(reviewDto.getContent());
-    return reviewRepository.save(review);
 
+
+    public Review createReview(ReviewDto reviewDto) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        User currentUser = (User) authentication.getPrincipal();
+
+        Review review = new Review();
+        review.setUser(currentUser);
+        review.setRating(reviewDto.getRating());
+        review.setMovie(reviewDto.getMovie());
+        review.setTimestamp(new Date(System.currentTimeMillis()));
+        review.setContent(reviewDto.getContent());
+        review.setStatus(Status.CREATED);
+
+        return reviewRepository.save(review);
     }
 
     @Transactional(readOnly = true)

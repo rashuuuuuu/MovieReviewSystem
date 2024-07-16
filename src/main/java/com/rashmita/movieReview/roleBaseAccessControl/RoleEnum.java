@@ -1,6 +1,6 @@
-package com.rashmita.movieReview.user.entity;
+package com.rashmita.movieReview.roleBaseAccessControl;
 
 public enum RoleEnum {
-    USER, ADMIN;
+    USER, ADMIN
 
 }

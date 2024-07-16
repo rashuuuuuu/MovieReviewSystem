@@ -1,7 +1,6 @@
-package com.rashmita.ImplementSecurity.configs;
+package com.rashmita.movieReview.authentication.ImplementSecurity.configs;
 
-
-import com.rashmita.ImplementSecurity.repositories.UserRepository;
+import com.rashmita.movieReview.user.repo.UserRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;

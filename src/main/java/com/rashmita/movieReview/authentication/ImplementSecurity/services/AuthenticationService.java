@@ -1,18 +1,25 @@
-package com.rashmita.ImplementSecurity.services;
+package com.rashmita.movieReview.authentication.ImplementSecurity.services;
 
-
-import com.rashmita.ImplementSecurity.dtos.LoginUserDto;
-import com.rashmita.ImplementSecurity.dtos.RegisterUserDto;
-import com.rashmita.ImplementSecurity.entities.User;
-import com.rashmita.ImplementSecurity.repositories.UserRepository;
+import com.rashmita.movieReview.authentication.ImplementSecurity.dtos.LoginUserDto;
+import com.rashmita.movieReview.authentication.ImplementSecurity.dtos.RegisterUserDto;
+import com.rashmita.movieReview.roleBaseAccessControl.Role;
+import com.rashmita.movieReview.roleBaseAccessControl.RoleEnum;
+import com.rashmita.movieReview.roleBaseAccessControl.RoleRepository;
+import com.rashmita.movieReview.user.entity.User;
+import com.rashmita.movieReview.user.repo.UserRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 @Service
 public class AuthenticationService {
     private final UserRepository userRepository;
+    @Autowired
+    private RoleRepository roleRepository;
 
     private final PasswordEncoder passwordEncoder;
 
@@ -29,10 +36,17 @@ public class AuthenticationService {
     }
 
     public User signup(RegisterUserDto input) {
-        User user = new User();
-               user.setFullName(input.getFullName());
-                user.setEmail(input.getEmail());
-                user.setPassword(passwordEncoder.encode(input.getPassword()));
+        Optional<Role> optionalRole = roleRepository.findByName(RoleEnum.USER);
+
+        if (optionalRole.isEmpty()) {
+            return null;
+        }
+
+        var user = new User();
+                user.setFullName(input.getFullName());
+        user.setEmail(input.getEmail());
+        user.setPassword(passwordEncoder.encode(input.getPassword()));
+        user.setRole(optionalRole.get());
 
         return userRepository.save(user);
     }

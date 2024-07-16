@@ -1,6 +1,6 @@
-package com.rashmita.ImplementSecurity.configs;
+package com.rashmita.movieReview.authentication.ImplementSecurity.configs;
 
-import com.rashmita.ImplementSecurity.services.JwtService;
+import com.rashmita.movieReview.authentication.ImplementSecurity.services.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

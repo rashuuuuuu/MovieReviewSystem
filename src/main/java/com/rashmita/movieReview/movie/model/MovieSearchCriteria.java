@@ -9,6 +9,9 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class MovieRatingRequest {
-    private int rating;
+
+public class MovieSearchCriteria {
+    private String genre;
+    private String title;
+    private String releaseDate;
 }

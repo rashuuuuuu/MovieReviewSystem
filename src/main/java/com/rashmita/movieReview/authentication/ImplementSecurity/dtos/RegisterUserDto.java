@@ -1,4 +1,4 @@
-package com.rashmita.ImplementSecurity.dtos;
+package com.rashmita.movieReview.authentication.ImplementSecurity.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

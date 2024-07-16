@@ -1,5 +1,6 @@
-package com.rashmita.ImplementSecurity.dtos;
+package com.rashmita.movieReview.authentication.ImplementSecurity.dtos;
 
+import com.rashmita.movieReview.movie.entity.Status;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,6 +12,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class LoginResponse {
     private String token;
+    private Status status;
 
     private long expiresIn;
 

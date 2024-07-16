@@ -1,4 +1,4 @@
-package com.rashmita.ImplementSecurity.exceptions;
+package com.rashmita.movieReview.authentication.ImplementSecurity.exceptions;
 
 
 import io.jsonwebtoken.ExpiredJwtException;

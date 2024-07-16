@@ -2,6 +2,7 @@ package com.rashmita.movieReview.review.model;
 
 import com.rashmita.movieReview.movie.entity.Movie;
 import com.rashmita.movieReview.user.entity.User;
+import com.rashmita.movieReview.user.model.UserDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,9 +15,7 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ReviewDto {
-    private User userId;
-
-    private Movie movieId;
+    private Movie movie;
 
     private String content;
 
@@ -24,5 +23,4 @@ public class ReviewDto {
 
     private Timestamp timestamp;
 
-    private Enum status;
 }

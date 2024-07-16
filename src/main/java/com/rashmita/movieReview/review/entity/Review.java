@@ -21,12 +21,12 @@ public class Review {
     private Long id;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "userId",referencedColumnName ="userId")
-    private User userId;
+    @JoinColumn(name = "user_id",referencedColumnName ="id")
+    private User User;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "movieId",referencedColumnName ="movieId")
-    private Movie movieId;
+    @JoinColumn(name = "movie_id",referencedColumnName ="id")
+    private Movie Movie;
 
     @Column(name="content")
     private String content;

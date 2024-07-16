@@ -1,0 +1,147 @@
+openapi: 3.0.1
+info:
+  title: Movie Review API
+  description: API documentation for the Movie Review application.
+  version: 1.0.0
+paths:
+  /user/login:
+    post:
+      summary: Authenticate user and generate JWT token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginUserDto'
+            examples:
+              example-1:
+                value:
+                  email: "admin@email.com"
+                  password: "123456"
+      responses:
+        '200':
+          description: Successful login
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+              examples:
+                example-1:
+                  value:
+                    token: "jwtTokenString"
+                    expiresIn: 3600
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                type: string
+                example: "Invalid username or password"
+  /user/createReview:
+    post:
+      summary: Create a new review
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReviewDto'
+            examples:
+              example-1:
+                value:
+                  movie:
+                    id: 1
+                  content: "Great movie!"
+                  rating: 4.5
+                  timestamp: "2024-07-16T12:34:56.789Z"
+      responses:
+        '200':
+          description: Review created successfully
+          content:
+            application/json:
+              schema:
+                type: string
+                example: "Review created successfully."
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: string
+                example: "Unauthorized"
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    LoginUserDto:
+      type: object
+      properties:
+        email:
+          type: string
+          description: User email
+          example: "user@example.com"
+        password:
+          type: string
+          description: User password
+          example: "password123"
+      required:
+        - email
+        - password
+    LoginResponse:
+      type: object
+      properties:
+        token:
+          type: string
+          description: JWT token
+          example: "jwtTokenString"
+        expiresIn:
+          type: integer
+          description: Token expiration time in seconds
+          example: 3600
+    ReviewDto:
+      type: object
+      properties:
+        movie:
+          $ref: '#/components/schemas/Movie'
+        content:
+          type: string
+          description: Review content
+          example: "Great movie!"
+        rating:
+          type: number
+          format: double
+          description: Rating given to the movie
+          example: 4.5
+        timestamp:
+          type: string
+          format: date-time
+          description: Time when the review was created
+          example: "2024-07-16T12:34:56.789Z"
+      required:
+        - movie
+        - content
+        - rating
+    Movie:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Movie ID
+          example: 1
+        title:
+          type: string
+          description: Movie title
+          example: "Inception"
+        genre:
+          type: string
+          description: Movie genre
+          example: "Science Fiction"
+      required:
+        - id
+        - title
+        - genre

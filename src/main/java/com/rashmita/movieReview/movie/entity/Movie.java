@@ -1,5 +1,6 @@
 package com.rashmita.movieReview.movie.entity;
 
+import com.rashmita.movieReview.rating.entity.Rating;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,7 +14,7 @@ import lombok.NoArgsConstructor;
 public class Movie {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private Long movieId;
+    private Long id;
 
     @Column(name="title")
     private String title;
@@ -33,10 +34,7 @@ public class Movie {
     @Column(name="synopsis")
     private String synopsis;
 
-
     @Column(name="status")
     @Enumerated(EnumType.STRING)
     private Status status;
-
-
 }

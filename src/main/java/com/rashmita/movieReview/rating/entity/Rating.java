@@ -11,22 +11,21 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name="rating")
+@Table(name = "rating")
 public class Rating {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "userId",referencedColumnName ="userId")
-    private User userId;
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User user;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "movieId",referencedColumnName ="movieId")
-    private Movie movieId;
+    @JoinColumn(name = "movie_id", referencedColumnName = "id")
+    private Movie movie;
 
-    @Column(name="rating")
+    @Column(name = "rating")
     private int rating;
-
 }
