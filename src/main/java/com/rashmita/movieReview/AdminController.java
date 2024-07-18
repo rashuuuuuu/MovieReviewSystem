@@ -6,7 +6,7 @@ import com.rashmita.movieReview.movie.service.serviceImpl.MovieService;
 import com.rashmita.movieReview.rating.service.RatingService;
 import com.rashmita.movieReview.review.model.ReviewContent;
 import com.rashmita.movieReview.review.service.serviceImpl.ReviewService;
-import com.rashmita.movieReview.user.entity.User;
+import com.rashmita.movieReview.user.model.UserDto;
 import com.rashmita.movieReview.user.service.impl.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -77,7 +77,7 @@ public class AdminController {
 //    }
 
     @GetMapping("/getAllMovie")
-    public ResponseEntity<List<Movie>> getAllMovie() {
+    public ResponseEntity<List<MovieDto>> getAllMovie() {
         return ResponseEntity.ok(movieService.getAllMovie());
     }
 
@@ -90,13 +90,13 @@ public class AdminController {
 
     @GetMapping("/getAllUser")
     @PreAuthorize("hasAnyRole('ADMIN')")
-    public ResponseEntity<List<User>> allUsers() {
-        List <User> users = userService.allUsers();
+    public ResponseEntity<List<UserDto>> allUsers() {
+        List<UserDto> users = userService.allUsers();
 
         return ResponseEntity.ok(users);
 
     }
-    @GetMapping("/averageRating")
+    @PostMapping("/averageRating")
     @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<String> getAverageRating(@RequestBody Movie movieId) {
         Double rating = ratingService.getAveragerating(movieId);

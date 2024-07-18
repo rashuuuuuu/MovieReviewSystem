@@ -2,10 +2,13 @@ package com.rashmita.movieReview.user.model;
 
 import com.rashmita.movieReview.roleBaseAccessControl.RoleEnum;
 
+import com.rashmita.movieReview.user.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.Optional;
 
 
 @Getter
@@ -20,6 +23,8 @@ public class UserDto {
     private String password;
 
     private String email;
+
+    private String picture;
 
 
 }

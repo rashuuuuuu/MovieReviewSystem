@@ -7,7 +7,6 @@ import com.rashmita.movieReview.roleBaseAccessControl.RoleEnum;
 import com.rashmita.movieReview.roleBaseAccessControl.RoleRepository;
 import com.rashmita.movieReview.user.entity.User;
 import com.rashmita.movieReview.user.repo.UserRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -43,9 +42,10 @@ public class AuthenticationService {
         }
 
         var user = new User();
-                user.setFullName(input.getFullName());
+        user.setFullName(input.getFullName());
         user.setEmail(input.getEmail());
         user.setPassword(passwordEncoder.encode(input.getPassword()));
+        user.setPicture(input.getPicture());
         user.setRole(optionalRole.get());
 
         return userRepository.save(user);

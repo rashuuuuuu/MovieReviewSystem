@@ -1,6 +1,5 @@
 package com.rashmita.movieReview.movie.repo;
 
-import com.rashmita.movieReview.movie.model.MovieDto;
 import com.rashmita.movieReview.movie.model.MovieTitleRequest;
 import com.rashmita.movieReview.movie.entity.Movie;
 import org.springframework.data.jpa.repository.JpaRepository;

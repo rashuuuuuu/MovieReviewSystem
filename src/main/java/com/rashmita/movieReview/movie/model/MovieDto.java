@@ -21,10 +21,14 @@ public class MovieDto {
 
     private String cast;
 
-    private String crew;
+    private String director;
+
+    private String producer;
 
     private String synopsis;
 
-    private String Status;
+    private String picture;
+//
+//    private String Status;
 
 }

@@ -1,4 +1,4 @@
-package com.rashmita.movieReview.authentication.ImplementSecurity.dtos;
+package com.rashmita.movieReview.user.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,16 +7,13 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 
 
-public class RegisterUserDto {
-    private String email;
-
-    private String password;
-
+public class ProfileDto {
     private String fullName;
 
     private String picture;
+
 }

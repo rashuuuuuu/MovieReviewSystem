@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Optional;
+
 @Entity
 @Data
 @NoArgsConstructor
@@ -28,13 +30,20 @@ public class Movie {
     @Column(name="cast")
     private String cast;
 
-    @Column(name="crew")
-    private String crew;
+    @Column(name="director")
+    private String director;
+
+    @Column(name="producer")
+    private String producer;
 
     @Column(name="synopsis")
     private String synopsis;
 
+    @Column(name = "picture")
+    private String picture;
+
     @Column(name="status")
     @Enumerated(EnumType.STRING)
     private Status status;
+
 }

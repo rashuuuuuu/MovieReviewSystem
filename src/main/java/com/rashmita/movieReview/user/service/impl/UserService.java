@@ -1,23 +1,31 @@
 package com.rashmita.movieReview.user.service.impl;
 
 import com.rashmita.movieReview.authentication.ImplementSecurity.dtos.RegisterUserDto;
+import com.rashmita.movieReview.movie.model.MovieDto;
 import com.rashmita.movieReview.roleBaseAccessControl.Role;
 import com.rashmita.movieReview.roleBaseAccessControl.RoleEnum;
 import com.rashmita.movieReview.roleBaseAccessControl.RoleRepository;
 import com.rashmita.movieReview.user.entity.User;
+import com.rashmita.movieReview.user.model.UserDto;
 import com.rashmita.movieReview.user.repo.UserRepository;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
+    @Autowired
+    private ModelMapper modelMapper;
 
     public UserService(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
@@ -25,12 +33,11 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public List<User> allUsers() {
-        List<User> users = new ArrayList<>();
+    public List<UserDto> allUsers() {
+        List<User> users = userRepository.findAll();
 
-        userRepository.findAll().forEach(users::add);
-
-        return users;
+        return users.stream().map((user) -> modelMapper.map(user, UserDto.class))
+                .collect(Collectors.toList());
     }
 
     public User createAdministrator(RegisterUserDto input) {
@@ -48,4 +55,11 @@ public class UserService {
 
         return userRepository.save(user);
     }
+//    public  UserDto authenticatedUser(){
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        UserDto currentUser = (UserDto) authentication.getPrincipal();
+//              UserDto savedUserDto = modelMapper.map(currentUser, UserDto.class);
+//              return savedUserDto;
+//
+//    }
 }

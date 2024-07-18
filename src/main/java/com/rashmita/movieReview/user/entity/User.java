@@ -34,6 +34,9 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private String password;
 
+    @Column(name = "picture")
+    private String picture;
+
     @ManyToOne(optional = false)
     @JoinColumn(name = "role_id", referencedColumnName = "id", nullable = false)
     private Role role;
