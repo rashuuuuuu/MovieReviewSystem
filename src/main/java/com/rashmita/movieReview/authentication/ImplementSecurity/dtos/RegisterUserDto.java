@@ -19,4 +19,9 @@ public class RegisterUserDto {
     private String fullName;
 
     private String picture;
+
+
+    private String phone;
+
+    private String address;
 }

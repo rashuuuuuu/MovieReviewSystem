@@ -98,8 +98,8 @@ public class AdminController {
     }
     @PostMapping("/averageRating")
     @PreAuthorize("hasAnyRole('ADMIN')")
-    public ResponseEntity<String> getAverageRating(@RequestBody Movie movieId) {
-        Double rating = ratingService.getAveragerating(movieId);
+    public ResponseEntity<String> getAverageRating(@RequestBody MovieIdRequest movieIdRequest) {
+        Double rating = ratingService.getAveragerating(movieIdRequest);
         return ResponseEntity.status(HttpStatus.OK).body("average rating=" + rating);
     }
     @GetMapping("/noOfReview")

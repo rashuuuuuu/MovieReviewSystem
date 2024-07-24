@@ -5,6 +5,7 @@ import com.rashmita.movieReview.movie.entity.Movie;
 import com.rashmita.movieReview.movie.entity.Status;
 import com.rashmita.movieReview.movie.repo.MovieRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,11 +18,13 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class MovieService {
 
     private final MovieRepository movieRepository;
-     @Autowired
-    private ModelMapper modelMapper;
+    @Autowired
+    private final ModelMapper modelMapper;
+
     public Movie createMovie(MovieDto movieDto) {
         Movie movie = new Movie();
         movie.setTitle(movieDto.getTitle());
@@ -74,8 +77,25 @@ public class MovieService {
                     .collect(Collectors.toList());
 
         }
+    public List<MovieDto> getDetailsById(Long movieIdRequest){
+//        Movie moviee=new Movie();
+        Optional<Movie> movies= movieRepository.getDetailsById(movieIdRequest);
+        if(movies.isPresent()){
+            Movie movie = movies.get();
 
-        public List<MovieDto> searchByReleaseDate (String movieReleaseDateRequest){
+            int counter = movie.getViewCount() != null ? movie.getViewCount() : 0;
+            counter++;
+
+            log.info("Count: {}",counter);
+            movie.setViewCount(counter);
+            movieRepository.save(movie);
+        }
+        return movies.stream().map((movie) -> modelMapper.map(movie, MovieDto.class))
+                .collect(Collectors.toList());
+    }
+
+
+    public List<MovieDto> searchByReleaseDate (String movieReleaseDateRequest){
             List<Movie> movies=movieRepository.findByReleaseDate(movieReleaseDateRequest);
             return movies.stream().map((movie) -> modelMapper.map(movie, MovieDto.class))
                     .collect(Collectors.toList());
@@ -112,7 +132,22 @@ public class MovieService {
 
 
 
+//    public void createView(int counter){
+//        Movie movie=new Movie();
+//        int viewCount = counter;
+//        while(movie!=null) {
+//            movie.setViewCount(viewCount);
+//            movieRepository.save(movie);
+//        }
+//    }
+    public List<MovieDto> trending() {
+        List<Movie> movies= movieRepository.findAllByOrderByViewCountDesc();
+        return movies.stream().map((movie) -> modelMapper.map(movie, MovieDto.class))
+                .collect(Collectors.toList());
+
     }
+}
+
 
 
 

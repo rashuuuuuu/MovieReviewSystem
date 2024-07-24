@@ -14,7 +14,7 @@ public interface RatingRepository  extends JpaRepository<Rating, Long> {
     @Query("SELECT m FROM Movie m JOIN Rating r ON m.id = r.movie.id WHERE r.rating = :rating")
     List<Movie> findByMovieRating(int rating);
 
-    List<Rating> findByMovieId(Movie movieId);
+    List<Rating> findByMovieId(Long movieId);
 
     @Query("SELECT MAX(r.rating) FROM Rating r WHERE r.user.id = :userId")
     int findHighestRatingByUserId(Long userId);

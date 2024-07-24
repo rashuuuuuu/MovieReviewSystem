@@ -1,12 +1,13 @@
 package com.rashmita.movieReview.authentication.ImplementSecurity.services;
-
 import com.rashmita.movieReview.authentication.ImplementSecurity.dtos.LoginUserDto;
 import com.rashmita.movieReview.authentication.ImplementSecurity.dtos.RegisterUserDto;
+import com.rashmita.movieReview.emailValidation.EmailValidationService;
 import com.rashmita.movieReview.roleBaseAccessControl.Role;
 import com.rashmita.movieReview.roleBaseAccessControl.RoleEnum;
 import com.rashmita.movieReview.roleBaseAccessControl.RoleRepository;
 import com.rashmita.movieReview.user.entity.User;
 import com.rashmita.movieReview.user.repo.UserRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -23,6 +24,8 @@ public class AuthenticationService {
     private final PasswordEncoder passwordEncoder;
 
     private final AuthenticationManager authenticationManager;
+    @Autowired
+    private EmailValidationService emailValidationService;
 
     public AuthenticationService(
             UserRepository userRepository,
@@ -33,8 +36,8 @@ public class AuthenticationService {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
     }
-
-    public User signup(RegisterUserDto input) {
+@Transactional
+    public String signup(RegisterUserDto input) {
         Optional<Role> optionalRole = roleRepository.findByName(RoleEnum.USER);
 
         if (optionalRole.isEmpty()) {
@@ -47,8 +50,12 @@ public class AuthenticationService {
         user.setPassword(passwordEncoder.encode(input.getPassword()));
         user.setPicture(input.getPicture());
         user.setRole(optionalRole.get());
+        user.setPhone(input.getPhone());
+        user.setAddress(input.getAddress());
+        String email=input.getEmail();
+        userRepository.save(user);
+    return emailValidationService.sendEmailWithoutBody(email);
 
-        return userRepository.save(user);
     }
 
     public User authenticate(LoginUserDto input) {

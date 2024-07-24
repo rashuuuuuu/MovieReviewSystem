@@ -4,10 +4,9 @@ package com.rashmita.movieReview;
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.thymeleaf.ThymeleafAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 
-@SpringBootApplication(exclude = { ThymeleafAutoConfiguration.class })
+@SpringBootApplication
 public class MovieReviewApplication {
 	@Bean
 	public ModelMapper modelMapper(){

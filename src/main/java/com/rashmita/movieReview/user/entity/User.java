@@ -37,6 +37,12 @@ public class User implements UserDetails {
     @Column(name = "picture")
     private String picture;
 
+    @Column(name = "phone")
+    private String phone;
+
+    @Column(name = "address")
+    private String address;
+
     @ManyToOne(optional = false)
     @JoinColumn(name = "role_id", referencedColumnName = "id", nullable = false)
     private Role role;
@@ -89,5 +95,6 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
 
 }

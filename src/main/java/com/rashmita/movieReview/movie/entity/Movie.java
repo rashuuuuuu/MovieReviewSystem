@@ -42,6 +42,9 @@ public class Movie {
     @Column(name = "picture")
     private String picture;
 
+    @Column(name="viewCount")
+    private Integer viewCount;
+
     @Column(name="status")
     @Enumerated(EnumType.STRING)
     private Status status;

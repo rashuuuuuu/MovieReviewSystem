@@ -1,5 +1,6 @@
 package com.rashmita.movieReview.movie.repo;
 
+import com.rashmita.movieReview.movie.model.MovieDto;
 import com.rashmita.movieReview.movie.model.MovieTitleRequest;
 import com.rashmita.movieReview.movie.entity.Movie;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -19,9 +20,8 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
 
     List<Movie> findByReleaseDate(String movieReleaseDateRequest);
 
-
-
-
+    Optional<Movie> getDetailsById(Long movieIdRequest);
+    List<Movie> findAllByOrderByViewCountDesc();
 
 //
 //    List<Movie> findByRating(int rating);

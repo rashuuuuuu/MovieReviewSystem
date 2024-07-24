@@ -5,6 +5,7 @@ import com.rashmita.movieReview.authentication.ImplementSecurity.dtos.LoginUserD
 import com.rashmita.movieReview.authentication.ImplementSecurity.dtos.RegisterUserDto;
 import com.rashmita.movieReview.authentication.ImplementSecurity.services.AuthenticationService;
 import com.rashmita.movieReview.authentication.ImplementSecurity.services.JwtService;
+import com.rashmita.movieReview.emailValidation.EmailValidationService;
 import com.rashmita.movieReview.movie.model.*;
 import com.rashmita.movieReview.movie.service.serviceImpl.MovieService;
 import com.rashmita.movieReview.rating.model.RatingDto;
@@ -40,28 +41,31 @@ public class UserController {
     private final ReviewService reviewService;
     private final RatingService ratingService;
     private final MovieService movieService;
+    private final EmailValidationService emailValidationService;
 
-    public UserController(JwtService jwtService, AuthenticationService authenticationService, ReviewService reviewService, RatingService ratingService, MovieService movieService) {
+    public UserController(JwtService jwtService, AuthenticationService authenticationService, ReviewService reviewService, RatingService ratingService, MovieService movieService, EmailValidationService emailValidationService) {
         this.jwtService = jwtService;
         this.authenticationService = authenticationService;
         this.reviewService = reviewService;
         this.ratingService = ratingService;
         this.movieService = movieService;
+        this.emailValidationService = emailValidationService;
+
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<String>  register(@RequestBody RegisterUserDto registerUserDto) throws Exception {
-        User registeredUser = authenticationService.signup(registerUserDto);
-        return ResponseEntity.status(HttpStatus.OK).body("signup successfully.");
+    public ResponseEntity<String> register(@RequestBody RegisterUserDto registerUserDto) throws Exception {
+        String registeredUser = authenticationService.signup(registerUserDto);
+        String email = registerUserDto.getEmail();
+        return new ResponseEntity<>(emailValidationService.sendEmailWithoutBody(email), HttpStatus.OK);
+
     }
 
 
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> authenticate(@RequestBody LoginUserDto loginUserDto) {
         User authenticatedUser = authenticationService.authenticate(loginUserDto);
-
         String jwtToken = jwtService.generateToken(authenticatedUser);
-
         LoginResponse loginResponse = new LoginResponse();
         loginResponse.setToken(jwtToken);
         loginResponse.setExpiresIn(jwtService.getExpirationTime());
@@ -100,10 +104,18 @@ public class UserController {
         ratingService.createRating(ratingDto);
         return ResponseEntity.status(HttpStatus.OK).body("Rating created successfully.");
     }
+
     @PostMapping("/searchByTitle")
     public ResponseEntity<List<MovieDto>> searchByTitle(@RequestBody MovieTitleRequest movieTitleRequest) {
         String title = movieTitleRequest.getTitle();
         List<MovieDto> movies = movieService.searchByTitle(title);
+        return ResponseEntity.ok(movies);
+    }
+
+    @PostMapping("/getById")
+    public ResponseEntity<List<MovieDto>> getDetailsById(@RequestBody MovieIdRequest movieIdRequest) {
+        Long id = movieIdRequest.getMovieId();
+        List<MovieDto> movies = movieService.getDetailsById(id);
         return ResponseEntity.ok(movies);
     }
 
@@ -134,7 +146,7 @@ public class UserController {
     @GetMapping("/getAllMovie")
 
     public ResponseEntity<List<MovieDto>> getAllMovie() {
-        List<MovieDto> movies=movieService.getAllMovie();
+        List<MovieDto> movies = movieService.getAllMovie();
         return ResponseEntity.ok(movies);
     }
 
@@ -142,7 +154,7 @@ public class UserController {
     @PostMapping("/search")
     public ResponseEntity<List<MovieDto>> searchMovies(@RequestBody MovieSearchCriteria criteria) {
         List<MovieDto> movies = movieService.searchMovies(criteria);
-        return  ResponseEntity.ok(movies);
+        return ResponseEntity.ok(movies);
     }
 
 
@@ -151,4 +163,11 @@ public class UserController {
         return recommendationService.getRecommendations();
     }
 
+
+    @GetMapping("/trending")
+    public List<MovieDto> trending() {
+        return movieService.trending();
+    }
 }
+
+

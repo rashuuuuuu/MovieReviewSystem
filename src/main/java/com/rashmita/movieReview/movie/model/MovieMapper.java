@@ -8,7 +8,7 @@ import org.mapstruct.factory.Mappers;
 @Mapper(componentModel = "spring")
 public interface MovieMapper {
     MovieMapper INSTANCE = Mappers.getMapper(MovieMapper.class);
-    @Mapping(source = "status", target = "status")
+//    @Mapping(source = "status", target = "status")
     MovieDto toDto(Movie movie);
 
 }

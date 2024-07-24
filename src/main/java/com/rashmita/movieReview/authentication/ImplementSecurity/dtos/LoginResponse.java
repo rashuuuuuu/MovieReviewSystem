@@ -12,7 +12,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class LoginResponse {
     private String token;
-    private Status status;
+//    private Status status;
 
     private long expiresIn;
 

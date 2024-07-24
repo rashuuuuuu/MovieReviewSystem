@@ -1,6 +1,7 @@
 package com.rashmita.movieReview.rating.service;
 
 import com.rashmita.movieReview.movie.model.MovieDto;
+import com.rashmita.movieReview.movie.model.MovieIdRequest;
 import com.rashmita.movieReview.movie.model.MovieRatingRequest;
 import com.rashmita.movieReview.movie.repo.MovieRepository;
 import com.rashmita.movieReview.rating.model.RatingDto;
@@ -48,8 +49,8 @@ public class RatingService {
         return movies.stream().map((movie) -> modelMapper.map(movie, MovieDto.class))
                 .collect(Collectors.toList());
     }
-    public Double getAveragerating(Movie movieId) {
-        List<Rating> ratings = ratingRepository.findByMovieId(movieId);
+    public Double getAveragerating(MovieIdRequest movieIdDto) {
+        List<Rating> ratings = ratingRepository.findByMovieId(movieIdDto.getMovieId());
         double averageRating = ratings.stream().mapToInt(Rating::getRating).average().orElse(0.0);
          return averageRating;
     }
