@@ -1,0 +1,12 @@
+-- liquibase formatted sql
+-- changeset rashmita:1
+-- preconditions onFail:CONTINUE onError:HALT
+CREATE TABLE IF NOT EXISTS roles (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) UNIQUE NOT NULL,
+    description VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL
+    );
+--
+insert into roles(name,description,created_at,updated_at) values("users","role",now(),now());

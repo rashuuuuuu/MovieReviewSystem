@@ -54,7 +54,7 @@ public class AuthenticationService {
         user.setAddress(input.getAddress());
         String email=input.getEmail();
         userRepository.save(user);
-    return emailValidationService.sendEmailWithoutBody(email);
+    return emailValidationService.sendEmailWithVerificationLink(email);
 
     }
 
@@ -65,8 +65,9 @@ public class AuthenticationService {
                         input.getPassword()
                 )
         );
-
         return userRepository.findByEmail(input.getEmail())
                 .orElseThrow();
     }
+
+
 }

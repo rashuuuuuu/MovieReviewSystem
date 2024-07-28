@@ -65,12 +65,12 @@
     </div>
     <div class="content">
         <h2>Hello, ${name}!</h2>
-        <p>Thank you for registering. Please click the button below to verify your email address and complete your registration.</p>
-        <a href="${verificationLink}" class="verify-button">Verify Email</a>
+        <p>Thank you for registering. Please use the following OTP to verify your email address:</p>
+        <h3 style="text-align: center;">${input}</h3>
         <p>If you did not register for an account, please ignore this email.</p>
     </div>
     <div class="footer">
-        <p>&copy; 2024 Your Company. All rights reserved.</p>
+        <p>&copy; 2024 CosmoTech Intl. All rights reserved.</p>
     </div>
 </div>
 </body>

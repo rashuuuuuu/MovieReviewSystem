@@ -25,13 +25,13 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(name="full_name")
     private String fullName;
 
-    @Column(unique = true, length = 100, nullable = false)
+    @Column(unique = true, length = 100, nullable = false,name="email")
     private String email;
 
-    @Column(nullable = false)
+    @Column(nullable = false,name="password")
     private String password;
 
     @Column(name = "picture")

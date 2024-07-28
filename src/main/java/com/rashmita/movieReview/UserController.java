@@ -52,12 +52,21 @@ public class UserController {
         this.emailValidationService = emailValidationService;
 
     }
+    @PostMapping("/verifyAccount")
+    public ResponseEntity<Boolean> verifyAccount(@RequestBody String otp) {
+        boolean isValid = emailValidationService.verifyOtp(otp);
+        if (isValid) {
+            return new ResponseEntity<>(true, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(false, HttpStatus.UNAUTHORIZED);
+        }
+    }
 
     @PostMapping("/signup")
     public ResponseEntity<String> register(@RequestBody RegisterUserDto registerUserDto) throws Exception {
         String registeredUser = authenticationService.signup(registerUserDto);
         String email = registerUserDto.getEmail();
-        return new ResponseEntity<>(emailValidationService.sendEmailWithoutBody(email), HttpStatus.OK);
+        return new ResponseEntity<>(emailValidationService.sendEmailWithVerificationLink(email), HttpStatus.OK);
 
     }
 

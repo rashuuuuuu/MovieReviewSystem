@@ -15,6 +15,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -40,21 +41,26 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
-    public User createAdministrator(RegisterUserDto input) {
-        Optional<Role> optionalRole = roleRepository.findByName(RoleEnum.ADMIN);
-
-        if (optionalRole.isEmpty()) {
-            return null;
-        }
-
-        var user = new User();
-        user.setFullName(input.getFullName());
-        user.setEmail(input.getEmail());
-        user.setPassword(passwordEncoder.encode(input.getPassword()));
-        user.setRole(optionalRole.get());
-
-        return userRepository.save(user);
-    }
+//    public User createAdministrator(RegisterUserDto input) {
+//        Optional<Role> optionalRole = roleRepository.findByName(RoleEnum.ADMIN);
+//
+//        if (optionalRole.isEmpty()) {
+//            return null;
+//        }
+//
+//        var user = new User();
+//        user.setFullName(input.getFullName());
+//        user.setEmail(input.getEmail());
+//        user.setPassword(passwordEncoder.encode(input.getPassword()));
+//        user.setRole(optionalRole.get());
+//        user.setAddress(input.getAddress());
+//        user.setPhone(input.getPhone());
+//        user.setPicture(input.getPicture());
+//        user.setCreatedAt(new Date());
+//        user.setUpdatedAt(new Date());
+//
+//        return userRepository.save(user);
+//    }
 //    public  UserDto authenticatedUser(){
 //        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 //        UserDto currentUser = (UserDto) authentication.getPrincipal();

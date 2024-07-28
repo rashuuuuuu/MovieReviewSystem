@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 
@@ -20,6 +21,9 @@ import freemarker.template.TemplateException;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.io.IOException;
+import java.util.concurrent.ThreadLocalRandom;
+
+import static java.util.regex.Pattern.matches;
 
 @Service
 @RequiredArgsConstructor
@@ -29,12 +33,16 @@ public class EmailValidationService {
 
     @Value("${spring.mail.username}")
     private String sender;
-    String verification="";
-    public String sendEmailWithoutBody(String email) {
+    private String savedOtp;
+    public String sendEmailWithVerificationLink(String email) {
         try {
+            // Validate recipient email
             if (!isValidEmailAddress(email)) {
                 return "Error in Sending Mail: Invalid recipient email address";
             }
+
+            // Generate OTP
+            savedOtp = generateOtp();
 
             String subject = "Email Validation";
             System.out.println("Recipient Email Address: " + email);
@@ -47,7 +55,9 @@ public class EmailValidationService {
 
             Map<String, Object> model = new HashMap<>();
             model.put("name",email);
-            model.put("verificationLink",verification);
+            model.put("input",savedOtp);
+
+
 
             Template template = freemarkerConfig.getTemplate("email-template.ftl");
             String htmlContent = FreeMarkerTemplateUtils.processTemplateIntoString(template, model);
@@ -63,7 +73,20 @@ public class EmailValidationService {
     }
 
     private boolean isValidEmailAddress(String email) {
-        // Add your email validation logic here
+        //  email validation logic
         return email != null && email.contains("@");
     }
+
+
+        public String generateOtp() {
+            int otp = ThreadLocalRandom.current().nextInt(100000, 999999);
+            return String.valueOf(otp);
+        }
+
+    public boolean verifyOtp(String enteredOtp) {
+        return savedOtp.equals(enteredOtp);
+    }
+
+
+
 }
