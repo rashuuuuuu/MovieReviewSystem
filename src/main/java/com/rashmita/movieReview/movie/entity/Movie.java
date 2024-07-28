@@ -24,7 +24,7 @@ public class Movie {
     @Column(name="genre")
     private String genre;
 
-    @Column(name="releaseDate")
+    @Column(name="releasedate")
     private String releaseDate;
 
     @Column(name="cast")
@@ -42,7 +42,7 @@ public class Movie {
     @Column(name = "picture")
     private String picture;
 
-    @Column(name="view_count")
+    @Column(name="viewCount")
     private Integer viewCount;
 
     @Column(name="status")

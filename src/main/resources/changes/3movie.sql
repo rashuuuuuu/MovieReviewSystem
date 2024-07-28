@@ -1,20 +1,20 @@
 -- liquibase formatted sql
 -- changeset rashmita:1
 -- preconditions onFail:CONTINUE onError:HALT
-CREATE TABLE IF NOT EXISTS  movie (
-  id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    title VARCHAR(255),
-    genre VARCHAR(255),
-    releaseDate VARCHAR(255),
-    cast VARCHAR(255),
-    director VARCHAR(255),
-    producer VARCHAR(255),
-    synopsis VARCHAR(255),
-    picture VARCHAR(255),
-    view_count INT,
-    status VARCHAR(255)
-    );
-
-insert into movie(title,genre,releaseDate,cast,director,producer,
-                  synopsis,picture,viewCount,status
-)values("heven and earth","action","2023-23-2","aayush","hitesh","movie had a good ending","moviepic",1,CREATED);
+-- CREATE TABLE IF NOT EXISTS  movie (
+--   id BIGINT AUTO_INCREMENT PRIMARY KEY,
+--     title VARCHAR(255),
+--     genre VARCHAR(255),
+--     releaseDate VARCHAR(255),
+--     cast VARCHAR(255),
+--     director VARCHAR(255),
+--     producer VARCHAR(255),
+--     synopsis VARCHAR(255),
+--     picture VARCHAR(255),
+--     view_count INT,
+--     status VARCHAR(255)
+--     );
+--
+-- insert into movie(title,genre,releaseDate,cast,director,producer,
+--                   synopsis,picture,viewCount,status
+-- )values("heven and earth","action","2023-23-2","aayush","hitesh","movie had a good ending","moviepic",1,CREATED);

@@ -52,6 +52,7 @@ public class UserController {
         this.emailValidationService = emailValidationService;
 
     }
+
     @PostMapping("/verifyAccount")
     public ResponseEntity<Boolean> verifyAccount(@RequestBody String otp) {
         boolean isValid = emailValidationService.verifyOtp(otp);
@@ -176,6 +177,12 @@ public class UserController {
     @GetMapping("/trending")
     public List<MovieDto> trending() {
         return movieService.trending();
+    }
+
+    @GetMapping("/getReview")
+    public ResponseEntity<List<ReviewDto>> getALlReview() {
+        List<ReviewDto> reviews = reviewService.getAllReview();
+        return ResponseEntity.ok(reviews);
     }
 }
 

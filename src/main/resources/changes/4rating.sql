@@ -1,13 +1,13 @@
 -- liquibase formatted sql
 -- changeset rashmita:1
 -- preconditions onFail:CONTINUE onError:HALT
-CREATE TABLE IF NOT EXISTS  rating (
-         id BIGINT AUTO_INCREMENT PRIMARY KEY,
-         user_id BIGINT NOT NULL,
-         movie_id BIGINT NOT NULL,
-         rating INT,
-         CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users(id),
-         CONSTRAINT fk_movie FOREIGN KEY (movie_id) REFERENCES movie(id)
-    );
-
-insert into rating(user_id,movie_id,rating)values(1,2,5);
+-- CREATE TABLE IF NOT EXISTS  rating (
+--          id BIGINT AUTO_INCREMENT PRIMARY KEY,
+--          user_id BIGINT NOT NULL,
+--          movie_id BIGINT NOT NULL,
+--          rating INT,
+--          CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users(id),
+--          CONSTRAINT fk_movie FOREIGN KEY (movie_id) REFERENCES movie(id)
+--     );
+--
+-- insert into rating(user_id,movie_id,rating)values(1,2,5);

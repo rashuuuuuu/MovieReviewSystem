@@ -2,6 +2,7 @@ package com.rashmita.movieReview.review.entity;
 
 import com.rashmita.movieReview.movie.entity.Status;
 import com.rashmita.movieReview.movie.entity.Movie;
+import com.rashmita.movieReview.movie.model.MovieIdRequest;
 import com.rashmita.movieReview.user.entity.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -41,4 +42,6 @@ public class Review {
     @Enumerated(EnumType.STRING)
     private Status status;
 
+    public void setMovie(MovieIdRequest movieIdRequest) {
+    }
 }

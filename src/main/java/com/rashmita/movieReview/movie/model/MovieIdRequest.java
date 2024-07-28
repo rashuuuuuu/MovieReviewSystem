@@ -1,5 +1,6 @@
 package com.rashmita.movieReview.movie.model;
 
+import com.rashmita.movieReview.movie.entity.Movie;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

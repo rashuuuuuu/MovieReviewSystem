@@ -1,6 +1,7 @@
 package com.rashmita.movieReview.rating.entity;
 
 import com.rashmita.movieReview.movie.entity.Movie;
+import com.rashmita.movieReview.movie.model.MovieIdRequest;
 import com.rashmita.movieReview.user.entity.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -28,4 +29,7 @@ public class Rating {
 
     @Column(name = "rating")
     private int rating;
+
+    public void setMovie(MovieIdRequest movieIdRequest) {
+    }
 }

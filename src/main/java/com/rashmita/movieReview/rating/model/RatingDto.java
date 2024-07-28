@@ -1,6 +1,7 @@
 package com.rashmita.movieReview.rating.model;
 
 import com.rashmita.movieReview.movie.entity.Movie;
+import com.rashmita.movieReview.movie.model.MovieIdRequest;
 import com.rashmita.movieReview.user.entity.User;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -15,8 +16,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class RatingDto {
 
-    private User userId;
-    private Movie movieId;
+    private MovieIdRequest movieIdRequest;
     @Min(1)
     @Max(5)
     private int rating;
