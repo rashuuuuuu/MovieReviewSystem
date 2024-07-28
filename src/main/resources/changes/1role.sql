@@ -8,5 +8,4 @@
 --     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
 --     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL
 --     );
--- --
 -- insert into roles(name,description,created_at,updated_at) values("users","role",now(),now());

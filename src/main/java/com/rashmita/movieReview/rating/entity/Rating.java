@@ -30,6 +30,5 @@ public class Rating {
     @Column(name = "rating")
     private int rating;
 
-    public void setMovie(MovieIdRequest movieIdRequest) {
-    }
+
 }

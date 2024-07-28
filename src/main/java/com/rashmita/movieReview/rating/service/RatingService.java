@@ -40,7 +40,7 @@ public class RatingService {
         Rating rating = new Rating();
         rating.setRating(ratingDto.getRating());
         rating.setUser(currentUser);
-        rating.setMovie(ratingDto.getMovieIdRequest());
+        rating.setMovie(ratingDto.getMovieId());
         return ratingRepository.save(rating);
     }
 
@@ -54,5 +54,4 @@ public class RatingService {
         double averageRating = ratings.stream().mapToInt(Rating::getRating).average().orElse(0.0);
          return averageRating;
     }
-
 }

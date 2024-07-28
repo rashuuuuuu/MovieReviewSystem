@@ -17,7 +17,7 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ReviewDto {
-    private MovieIdRequest movieIdRequest;
+    private Movie movieIdRequest;
     private String content;
     private Double rating;
     private Timestamp timestamp;
