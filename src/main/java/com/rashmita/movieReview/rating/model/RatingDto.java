@@ -16,7 +16,7 @@ import lombok.Setter;
 public class RatingDto {
 
     private User userId;
-    private Movie movieId;
+    private Movie movie;
     @Min(1)
     @Max(5)
     private int rating;

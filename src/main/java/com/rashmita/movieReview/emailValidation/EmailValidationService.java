@@ -30,7 +30,7 @@ import static java.util.regex.Pattern.matches;
 public class EmailValidationService {
     private final JavaMailSender javaMailSender;
     private final Configuration freemarkerConfig;
-
+    String password="abcd efgh ijkl mnop";
     @Value("${spring.mail.username}")
     private String sender;
     private String savedOtp;

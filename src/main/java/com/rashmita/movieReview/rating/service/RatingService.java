@@ -40,7 +40,7 @@ public class RatingService {
         Rating rating = new Rating();
         rating.setRating(ratingDto.getRating());
         rating.setUser(currentUser);
-        rating.setMovie(ratingDto.getMovieId());
+        rating.setMovie(ratingDto.getMovie());
         return ratingRepository.save(rating);
     }
 
